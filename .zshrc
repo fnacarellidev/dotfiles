@@ -10,18 +10,20 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+autoload -Uz vcs_info
 autoload -Uz compinit && compinit
-ZSH_THEME_GIT_PROMPT_PREFIX="("
-ZSH_THEME_GIT_PROMPT_SUFFIX=")"
-ZSH_THEME_GIT_PROMPT_DIRTY="*"
-ZSH_THEME_GIT_PROMPT_CLEAN="✨"
-ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[cyan]%} ✈"
-ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%} ✭"
-ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%} ✗"
-ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%} ➦"
-ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[magenta]%} ✂"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[grey]%} ✱"
+
+precmd() { 
+	vcs_info 
+	if [[ -z ${vcs_info_msg_0_} ]]; then
+		PS1='%F{green}%B%n % ➥ %f%F{blue}%m %F{093}%3~ %f%b'
+	else
+		PS1='%F{069}%B%n%f%b ${vcs_info_msg_0_} '
+	fi
+}
+
+zstyle ':vcs_info:git:*' formats '%r/%S (%F{153}%b%f)'
+setopt PROMPT_SUBST
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-PS1='%F{green}%B%n % ➥ %f%F{blue}%m %F{093}%3~ %f%b$(git_prompt_info) $(git_prompt_status)'
-RPROMPT='%(?.%F{green}✓%f.%F{red}✗ %?%f) %F{yellow}%*%f'
+RPROMPT='%(?.%F{green}✓%f.%F{red}✗ %?%f) %F{white}%*%f'
