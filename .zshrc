@@ -39,7 +39,7 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr '+'
 zstyle ':vcs_info:*' unstagedstr '!'
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked-or-uptodate
-zstyle ':vcs_info:git:*' formats '%B%F{blue}%r/%S%f%%b %F{153}❴%b❵%f %F{226}%c%u%m%f'
+zstyle ':vcs_info:git:*' formats '%B%F{blue}%r/%S%f%%b %F{153}❴%b❵%f %B%F{226}[%c%u%m]%f%%b'
 setopt PROMPT_SUBST
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
