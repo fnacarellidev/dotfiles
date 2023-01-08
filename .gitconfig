@@ -3,3 +3,5 @@
 	email = 97247063+fnacarellidev@users.noreply.github.com
 [init]
 	defaultBranch = main
+[core]
+	editor = nvim
