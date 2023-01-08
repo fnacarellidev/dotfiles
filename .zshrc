@@ -11,6 +11,7 @@ alias valgrind="valgrind --leak-check=full --show-leak-kinds=all"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export GIT_EDITOR="nvim"
 
 plugins=(
 	git
