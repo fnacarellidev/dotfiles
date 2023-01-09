@@ -1,10 +1,37 @@
-+vi-git-untracked-or-uptodate(){
+function +vi-git-untracked()
+{
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
         git status --porcelain | grep '??' &> /dev/null ; then
         hook_com[staged]+='?'
-	elif [[ -n $(git status | grep "nothing to commit") ]]; then
-		hook_com[misc]+='🔥'
     fi
+}
+
+function +vi-git-updated()
+{
+	if [[ -n $(git status | grep "nothing to commit") && 
+		-z $(git status | grep "publish") ]]; then
+		hook_com[misc]+='🔥'
+	fi
+}
+
+function +vi-git-st() {
+    local ahead behind
+    local -a gitstatus
+
+    # Exit early in case the worktree is on a detached HEAD
+    git rev-parse ${hook_com[branch]}@{upstream} >/dev/null 2>&1 || return 0
+
+    local -a ahead_and_behind=(
+        $(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)
+    )
+
+    ahead=${ahead_and_behind[1]}
+    behind=${ahead_and_behind[2]}
+
+    (( $ahead )) && gitstatus+=( "⇡${ahead}" )
+    (( $behind )) && gitstatus+=( "⇣${behind}" )
+
+    hook_com[misc]+=${(j:/:)gitstatus}
 }
 
 alias valgrind="valgrind --leak-check=full --show-leak-kinds=all"
@@ -19,6 +46,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 autoload -Uz vcs_info
 # Autocompletion for git
@@ -39,9 +67,8 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr '+'
 zstyle ':vcs_info:*' unstagedstr '!'
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked-or-uptodate
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-st git-updated
 zstyle ':vcs_info:git:*' formats '%B%F{blue}%r/%S%f%%b %F{153}❴%b❵%f %B%F{226}[%c%u%m]%f%%b'
 setopt PROMPT_SUBST
 
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 RPROMPT='%(?.%F{green}✓%f.%F{red}✗ %?%f) %F{white}%*%f '
