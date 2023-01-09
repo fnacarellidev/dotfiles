@@ -14,3 +14,14 @@ else
 	ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 	echo -e "${GREEN}.gitconfig set successfully!${RESET}"
 fi
+
+ls -a ~ | grep .zshrc > /dev/null
+ret=$(echo $?)
+if (( ret == 0 )) 
+then
+	echo -e "${RED}Symbolic link to repo .zshrc was not created, if you want \\
+to do that please backup your current .zshrc file and then delete it.${RESET}"
+else
+	ln -s ~/.dotfiles/.zshrc ~/.zshrc
+	echo -e "${GREEN}.zshrc set successfully!${RESET}"
+fi
