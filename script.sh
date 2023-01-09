@@ -23,5 +23,9 @@ then
 to do that please backup your current .zshrc file and then delete it.${RESET}"
 else
 	ln -s ~/.dotfiles/.zshrc ~/.zshrc
-	echo -e "${GREEN}.zshrc set successfully!${RESET}"
+	if (( echo $? == 0)); then
+		echo -e "${GREEN}.zshrc set successfully!${RESET}"
+	else
+		echo -e "${RED}.zshrc linkage failed${RESET}"
+	fi
 fi
