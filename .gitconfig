@@ -4,9 +4,10 @@
 [init]
 	defaultBranch = main
 [core]
-	editor = nvim
 	excludesfile = "~/.gitignore_global"
 [push]
 	autoSetupRemote = true
 [pager]
 	branch = false
+[alias]
+	branchd = "!git branch -D \"$1\" #"
