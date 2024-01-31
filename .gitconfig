@@ -8,3 +8,5 @@
 	excludesfile = "~/.gitignore_global"
 [push]
 	autoSetupRemote = true
+[pager]
+	branch = false
