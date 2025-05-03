@@ -1,0 +1,68 @@
+@import "themes/latte.css";
+
+* {
+    font-family: FiraCode Nerd Font;
+    padding: 0px;
+    font-weight: 500;
+}
+
+window#waybar {
+    background-color: @base;
+    border-radius: 8px;
+}
+
+.modules-right {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: @surface1;
+}
+
+.modules-center {
+    color: @mauve;
+    padding: 8px 16px;
+    background-color: @surface1;
+}
+
+#pulseaudio {
+    margin-left: 8px;
+    color: @green;
+}
+
+#memory {
+    margin-left: 8px;
+    color: @sky;
+}
+
+#memory.warning {
+    color: @peach;
+}
+
+#memory.critical {
+    color: @red;
+}
+
+#cpu {
+    margin-left: 4px;
+    color: @sky;
+}
+
+#workspaces button {
+    padding: 0px 16px;
+    border: none;
+}
+
+#workspaces button.active {
+    background-color: @rosewater;
+    color: @base;
+}
+
+#workspaces button:hover {
+    text-shadow: none;
+    box-shadow: none;
+    background: none;
+    transition: none;
+}
+
+#workspaces button.active:hover {
+    background-color: @rosewater;
+}
