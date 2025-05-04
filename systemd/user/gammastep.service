@@ -1,0 +1,12 @@
+[Unit]
+Description=Gammastep Blue Light Filter
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/gammastep -l -23.533773:-46.625290 -t 6500:3500
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
