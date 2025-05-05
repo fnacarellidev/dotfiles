@@ -2,6 +2,7 @@
 font = FiraCode Nerd Font 12
 corner_radius = 10
 frame_width = 3
+width = 325
 offset = (20, 20)
 background = "#eff1f5"
 foreground = "#4c4f69"
